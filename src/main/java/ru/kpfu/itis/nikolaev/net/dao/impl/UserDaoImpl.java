@@ -31,7 +31,7 @@ public class UserDaoImpl implements Dao<User> {
                                     resultSet.getInt("id"),
                                     resultSet.getString("name"),
                                     resultSet.getString("login"),
-                                    resultSet.getDate("date"),
+                                    resultSet.getString("date"),
                                     resultSet.getString("password"),
                                     resultSet.getString("gender"),
                                     resultSet.getString("position")
@@ -53,7 +53,7 @@ public class UserDaoImpl implements Dao<User> {
             preparedStatement.setInt(1, user.getId());
             preparedStatement.setString(2, user.getName());
             preparedStatement.setString(3, user.getLogin());
-            preparedStatement.setDate(4, (Date) user.getDate());
+            preparedStatement.setString(4, user.getDate());
             preparedStatement.setString(5, user.getPassword());
             preparedStatement.setString(6, user.getGender());
             preparedStatement.setString(7, user.getPosition());

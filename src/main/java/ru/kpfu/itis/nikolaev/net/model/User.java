@@ -1,7 +1,11 @@
 package ru.kpfu.itis.nikolaev.net.model;
 
-import java.util.Date;
+import lombok.Builder;
+import lombok.Data;
 
+import java.util.Date;
+@Data
+@Builder
 public class User {
 
     private int id;
@@ -9,12 +13,12 @@ public class User {
     private String name;
 
     private String login;
-    private Date date;
+    private String date;
     private String password;
     private String gender;
     private String position;
 
-    public User(int id, String name, String login, Date date, String password, String gender, String position) {
+    public User(int id, String name, String login, String date, String password, String gender, String position) {
         this.id = id;
         this.name = name;
         this.login = login;
@@ -48,11 +52,11 @@ public class User {
         this.login = login;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
