@@ -1,5 +1,6 @@
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="registration.css">
     <meta charset="UTF-8">
     <title>Registration page</title>
 </head>
@@ -39,7 +40,7 @@
     &emsp;&emsp;Teacher:<input type="radio" name="position" checked value="Teacher">
     <br>
     <br>
-    <input type="submit" value="Log in">
+    <input type="submit" value="Enter">
 </form>
 
 </body>

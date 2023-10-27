@@ -3,7 +3,14 @@ body {
     font-family: Arial, sans-serif;
 }
 
-form {
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.profile {
     margin: auto;
     width: 50%;
     border: 3px solid #f1f1f1;

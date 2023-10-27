@@ -38,5 +38,6 @@ public class RegistrationServlet extends HttpServlet {
                 .position(position)
                 .build();
         new UserDaoImpl().save(newUser);
+        resp.sendRedirect("login");
     }
 }

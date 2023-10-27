@@ -21,7 +21,7 @@ public class UserDaoImpl implements Dao<User> {
     public List<User> getAll() {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * from users";
+            String sql = "SELECT * from schema.users";
             ResultSet resultSet = statement.executeQuery(sql);
             List<User> users = new ArrayList<>();
             if (resultSet != null) {
@@ -47,7 +47,7 @@ public class UserDaoImpl implements Dao<User> {
 
     @Override
     public void save(User user) {
-        String sql = "insert into users (id, name, login, date, password, gender, position) values (?, ?, ?, ?, ?, ?, ?);";
+        String sql = "insert into schema.users (id, name, login, date, password, gender, position) values (?, ?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, user.getId());
