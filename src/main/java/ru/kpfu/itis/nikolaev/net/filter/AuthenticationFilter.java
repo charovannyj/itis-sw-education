@@ -37,4 +37,3 @@ public class AuthenticationFilter implements Filter {
         Filter.super.destroy();
     }
 }
-

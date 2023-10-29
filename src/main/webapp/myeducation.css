@@ -1,0 +1,19 @@
+.buttons-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+button {
+    border-radius: 20px;
+    border: 2px solid #333;
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #333;
+    color: #fff;
+}

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="start.css">
+
     <title>Простой HTML файл</title>
     <script>
         function goToLogin() {
