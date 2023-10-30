@@ -1,5 +1,7 @@
 package ru.kpfu.itis.nikolaev.net.server;
 
+import ru.kpfu.itis.nikolaev.net.dao.impl.ForumDaoImpl;
+import ru.kpfu.itis.nikolaev.net.model.Forum;
 import ru.kpfu.itis.nikolaev.net.util.DatabaseConnectionUtil;
 
 import java.time.LocalDate;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.List;
 
 @WebServlet(name = "mainServlet", urlPatterns = "/main")
 
@@ -21,30 +24,31 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("main.ftl");
-        //resp.getWriter().println(req.getSession().getAttribute("position"));
+        List<Forum> forums = new ForumDaoImpl().getAll(); // Получаем данные из базы данных
+        StringBuilder sb = new StringBuilder();
+        for(Forum forumik : forums){
+            sb.append(forumik.toString()).append("<br><br>");
+        }
+        req.setAttribute("forums", sb); // Передаем данные в шаблон
+
+        req.getRequestDispatcher("main.ftl").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //String[] messages = request.getParameterValues("message");
+
         int id = generateId();
         String login = req.getSession().getAttribute("login").toString();
         String time = LocalDate.now() + " " + String.valueOf(LocalTime.now()).substring(0,8);
         String content = req.getParameter("message");
-        addInfoInForum(id, login, time, content);
-    }
-
-    public void addInfoInForum(int id, String login, String time, String content) {
-        String query = "INSERT INTO schema.forum (id, login_user, time, content) VALUES (?, ?, ?, ?);";
-        try (PreparedStatement preparedStatement = DatabaseConnectionUtil.getConnection().prepareStatement(query)) {
-            preparedStatement.setInt(1, id);
-            preparedStatement.setString(2, login);
-            preparedStatement.setString(3, time);
-            preparedStatement.setString(4, content);
-            preparedStatement.execute();
-        } catch (SQLException exception) {
-            throw new RuntimeException(exception);
-        }
+        Forum forum = Forum.builder()
+                .id(id)
+                .login_user(login)
+                .time(time)
+                .content(content)
+                .build();
+        new ForumDaoImpl().save(forum);
+        doGet(req,resp);
     }
 
     private int generateId() {
