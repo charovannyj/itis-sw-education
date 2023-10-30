@@ -38,7 +38,7 @@ public class RegistrationServlet extends HttpServlet {
         try {
             if (!loginIsExist(login)) {
                 User newUser = User.builder()
-                        .id(1)
+                        .id(generateId())
                         .name(name)
                         .login(login)
                         .date(date)
@@ -66,6 +66,20 @@ public class RegistrationServlet extends HttpServlet {
                 return true;
             } else {
                 return false;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private int generateId(){
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT MAX(id) FROM schema.users";
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                return resultSet.getInt(1)+1;
+            } else {
+                return 0;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

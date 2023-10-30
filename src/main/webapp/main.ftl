@@ -82,21 +82,22 @@
 <div class="education">
     <a href="/education"><button class="education-button">Моё обучение</button></a>
 </div>
-<div class="forum">
-    <textarea class="message-input" placeholder="Введите сообщение"></textarea>
-    <button class="send-button">Отправить</button>
-</div>
+<form method="post" action="/main">
+<textarea name="message" placeholder="Введите сообщение"></textarea>
+<input type="submit"></form>
+<#--<div class="education-photo">
+    <img src="education.png">
+</div>-->
 
 <script>
-    function openProfileOptions() {
-        var options = document.getElementById("profileOptions");
-        if (options.style.display === "none") {
-            options.style.display = "block";
-        } else {
-            options.style.display = "none";
-        }
-    }
+function openProfileOptions() {
+var options = document.getElementById("profileOptions");
+if (options.style.display === "none") {
+options.style.display = "block";
+} else {
+options.style.display = "none";
+}
+}
 </script>
-
 </body>
 </html>

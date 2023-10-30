@@ -23,11 +23,11 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String newPassword = req.getParameter("newPassword");
-        Part photoPart = req.getPart("newPhoto");
-        InputStream photoStream = photoPart.getInputStream();
+        /*Part photoPart = req.getPart("newPhoto");
+        InputStream photoStream = photoPart.getInputStream();*/
         try {
             changePassword(newPassword);
-            addPhoto(photoStream);
+            //addPhoto(photoStream);
             resp.sendRedirect("/login");
         } catch (SQLException e) {
             throw new RuntimeException(e);

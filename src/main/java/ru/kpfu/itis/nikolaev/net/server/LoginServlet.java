@@ -35,6 +35,7 @@ public class LoginServlet extends HttpServlet {
         login = req.getParameter("login");
         password = req.getParameter("password");
         try {
+            session.setAttribute("id",getId());
             session.setAttribute("login", login);
             session.setAttribute("password", password);
             session.setAttribute("date", getDate());
@@ -79,7 +80,20 @@ public class LoginServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-
+    private String getId() throws SQLException {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM schema.users WHERE login='" + login + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                return resultSet.getString("id");
+            } else {
+                throw new RuntimeException("User not found");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private String getName() throws SQLException {
         try {
             Statement statement = connection.createStatement();
