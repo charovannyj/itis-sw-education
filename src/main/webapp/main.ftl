@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+<#include "base.ftl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,9 +81,6 @@
 </div>
 <div id="output"></div>
 
-<div class="education-photo">
-    <img src="education.png" height="457">
-</div>
 
 <div class="education">
     <a href="/education"><button class="education-button">Моё обучение</button></a>

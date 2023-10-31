@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<#include "base.ftl">
+
 <head>
     <link rel="stylesheet" type="text/css" href="start.css">
 

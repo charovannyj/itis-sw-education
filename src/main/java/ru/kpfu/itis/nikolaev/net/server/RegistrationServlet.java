@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
+import static java.lang.System.out;
+
 @WebServlet(name = "registrationServlet", urlPatterns = "/registration")
 
 public class RegistrationServlet extends HttpServlet {
@@ -35,25 +37,32 @@ public class RegistrationServlet extends HttpServlet {
         String password = req.getParameter("password");
         String gender = req.getParameter("gender");
         String position = req.getParameter("position");
-        try {
-            if (!loginIsExist(login)) {
-                User newUser = User.builder()
-                        .id(generateId())
-                        .name(name)
-                        .login(login)
-                        .date(date)
-                        .password(password)
-                        .gender(gender)
-                        .position(position)
-                        .build();
-                new UserDaoImpl().save(newUser);
-                resp.sendRedirect("login");
-            } else {
-                doGet(req, resp);
-                //добавить сообщение, что логин уже существует
+        if (validateName(name)&&validateLogin(login)&&validateDate(date)&&validatePassword(password)){
+            req.setAttribute("registrationError","Correct data");
+            try {
+                if (!loginIsExist(login)) {
+                    User newUser = User.builder()
+                            .id(generateId())
+                            .name(name)
+                            .login(login)
+                            .date(date)
+                            .password(password)
+                            .gender(gender)
+                            .position(position)
+                            .build();
+                    new UserDaoImpl().save(newUser);
+                    resp.sendRedirect("login");
+                } else {
+                    doGet(req, resp);
+                    //добавить сообщение, что логин уже существует
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        }
+        else{
+            req.setAttribute("registrationError","Incorrect data");
+            resp.getWriter().println("Incorrect data");
         }
     }
 
@@ -84,5 +93,21 @@ public class RegistrationServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    private boolean validateName(String name) {
+        String regex = "^[a-zA-Z]+([ -]?[a-zA-Z])*$";
+        return name.matches(regex);
+    }
+    private boolean validateLogin(String login){
+        String regex = "^[a-zA-Z0-9]+$";
+        return login.matches(regex);
+    }
+    private boolean validatePassword(String password){
+        String regex = "^.{8,}$";
+        return password.matches(regex);
+    }
+    private boolean validateDate(String date){
+        String regex = "^\\d{4}-\\d{2}-\\d{2}$";
+        return date.matches(regex);
     }
 }

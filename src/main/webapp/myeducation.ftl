@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<#include "base.ftl">
+
 <head>
     <title>Buttons Example</title>
     <link rel="stylesheet" type="text/css" href="myeducation.css">

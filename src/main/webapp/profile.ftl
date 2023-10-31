@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<#include "base.ftl">
+
 <html>
 <head>
     <title>Buttons Example</title>

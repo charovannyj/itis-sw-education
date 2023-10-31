@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<#include "base.ftl">
+
 <head>
     <link rel="stylesheet" type="text/css" href="login.css">
     <meta charset="UTF-8">

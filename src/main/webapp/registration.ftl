@@ -1,8 +1,11 @@
 <html lang="en">
+<#include "base.ftl">
+
 <head>
     <link rel="stylesheet" type="text/css" href="registration.css">
     <meta charset="UTF-8">
     <title>Registration page</title>
+
 </head>
 <body>
 
@@ -42,6 +45,7 @@
     <br>
     <input type="submit" value="Enter">
 </form>
+
 
 </body>
 </html>
