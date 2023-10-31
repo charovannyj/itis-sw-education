@@ -20,7 +20,7 @@ public class ForumDaoImpl implements Dao<Forum> {
     public List<Forum> getAll() {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * from schema.forum";
+            String sql = "SELECT * from schema.forum ORDER BY id DESC";
             ResultSet resultSet = statement.executeQuery(sql);
             List<Forum> forums = new ArrayList<>();
             if (resultSet != null) {

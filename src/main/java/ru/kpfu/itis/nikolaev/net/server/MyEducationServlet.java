@@ -25,14 +25,5 @@ public class MyEducationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
-    private void changePassword(String newPassword) throws SQLException {
-        try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE schema.users SET password = ? WHERE login = ?");
-            statement.setString(1, newPassword);
-            statement.setString(2, LoginServlet.login);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }

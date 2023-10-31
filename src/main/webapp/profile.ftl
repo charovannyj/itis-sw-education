@@ -3,6 +3,25 @@
 <head>
     <title>Buttons Example</title>
     <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+        .profile {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+        }
+        .logo {
+            width: 200px;
+            cursor: pointer;
+        }
+        .welcome-message {
+            text-align: center;
+        }
+    </style>
+    <style>
         body {
             background-color: #f1f1f1;
             font-family: Arial, sans-serif;
@@ -34,13 +53,25 @@
     </style>
 </head>
 <body>
+<div class="container">
+    <a href="/main"><img class="logo" src="logo.png" alt="Logo Image"></a>
+    <p class="welcome-message">${fullName}, добро пожаловать на нашу платформу онлайн-образования!</p>
+    <img class="profile" src="profile.png" alt="Profile Image" onclick="openProfileOptions()">
+    <div id="profileOptions" style="display: none;">
+        <a href="/profile">Профиль</a>
+        <a href="/start">Выход</a>
+    </div>
+</div>
 <div class="buttons-container">
-    <form method="post" action="/profile">
+    <form method="post" action="/profile" enctype="multipart/form-data">
         <input type="text" name="newPassword" id="change-password">
         <button type="submit">Сменить пароль</button>
         <input type="file" name="newPhoto" id="add-photo">
         <button type="submit">Добавить фотографию</button>
     </form>
+</div>
+<div class="education-photo">
+    <img>
 </div>
 <div class="data-profile">
     <p class="name">Полное имя: ${fullName}</p>

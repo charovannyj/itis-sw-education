@@ -6,7 +6,6 @@
     <style>
         .container {
             display: flex;
-            align-items: center;
             justify-content: space-between;
             flex-direction: row;
         }
@@ -81,20 +80,19 @@
 </div>
 <div id="output"></div>
 
+<div class="education-photo">
+    <img src="education.png" height="457">
+</div>
+
 <div class="education">
     <a href="/education"><button class="education-button">Моё обучение</button></a>
 </div>
+
 <form method="post" action="/main">
 <textarea name="message" placeholder="Введите сообщение"></textarea>
 <input type="submit"></form>
-<div class="education-photo">
-    <img src="education.png">
-</div>
+
 ${forums}
-
-<input id="searchbar" onkeyup="search_animal()" type="text"
-       name="search" placeholder="Search animals..">
-
 
 <script>
 function openProfileOptions() {

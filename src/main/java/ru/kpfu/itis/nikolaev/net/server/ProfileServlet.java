@@ -3,6 +3,7 @@ package ru.kpfu.itis.nikolaev.net.server;
 import ru.kpfu.itis.nikolaev.net.util.DatabaseConnectionUtil;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
@@ -10,24 +11,23 @@ import java.io.InputStream;
 import java.sql.*;
 
 @WebServlet(name = "profileServlet", urlPatterns = "/profile")
-
+@MultipartConfig
 public class ProfileServlet extends HttpServlet {
     private final Connection connection = DatabaseConnectionUtil.getConnection();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.sendRedirect("profile.ftl");
-        //resp.getWriter().println(req.getSession().getAttribute("position"));
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String newPassword = req.getParameter("newPassword");
-        /*Part photoPart = req.getPart("newPhoto");
-        InputStream photoStream = photoPart.getInputStream();*/
+        Part photoPart = req.getPart("newPhoto");
+        InputStream photoStream = photoPart.getInputStream();
         try {
             changePassword(newPassword);
-            //addPhoto(photoStream);
+            addPhoto(photoStream);
             resp.sendRedirect("/login");
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -44,6 +44,7 @@ public class ProfileServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
 
     private void changePassword(String newPassword) throws SQLException {
         try {
