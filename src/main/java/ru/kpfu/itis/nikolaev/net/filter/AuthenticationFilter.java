@@ -12,6 +12,8 @@ public class AuthenticationFilter implements Filter {
     private static final String LOGIN_URL = "/login";
     private static final String REGISTRATION_URL = "/registration";
     private static final String START_URL = "/start";
+    private static final String PASSWORD_RESET_URL = "/passwordReset";
+
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -25,7 +27,8 @@ public class AuthenticationFilter implements Filter {
         if (session == null &&
                 !requestURI.startsWith(LOGIN_URL) &&
                 !requestURI.startsWith(REGISTRATION_URL) &&
-                !requestURI.startsWith(START_URL)) {
+                !requestURI.startsWith(START_URL) &&
+                !requestURI.startsWith(PASSWORD_RESET_URL)){
             httpResponse.sendRedirect(START_URL);
             return;
         }

@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="registration.css">
     <meta charset="UTF-8">
     <title>Registration page</title>
-
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 
@@ -44,8 +44,14 @@
     <br>
     <br>
     <input type="submit" value="Enter">
+
+    <#if registrationError??>
+        <script>
+            alert("${registrationError}");
+        </script>
+    </#if>
 </form>
 
-
+<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

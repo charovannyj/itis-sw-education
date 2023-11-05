@@ -24,45 +24,25 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /*req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
         List<Forum> forums = new ForumDaoImpl().getAll(); // Получаем данные из базы данных
         StringBuilder sb = new StringBuilder();
         for(Forum forumik : forums){
             sb.append(forumik.toString()).append("<br><br>");
         }
-        req.setAttribute("forums", sb); // Передаем данные в шаблон
-
-        req.getRequestDispatcher("main.ftl").forward(req, resp);
+        req.setAttribute("forums", sb); // Передаем данные в шаблон*/
+        resp.sendRedirect("main.html");
+        //req.getRequestDispatcher("main.html").forward(req, resp);
+        /*List<Forum> forums = new ForumDaoImpl().getAll();
+        req.setAttribute("forums", forums);*/
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //String[] messages = request.getParameterValues("message");
 
-        int id = generateId();
-        String login = req.getSession().getAttribute("login").toString();
-        String time = LocalDate.now() + " " + String.valueOf(LocalTime.now()).substring(0,8);
-        String content = req.getParameter("message");
-        Forum forum = Forum.builder()
-                .id(id)
-                .login_user(login)
-                .time(time)
-                .content(content)
-                .build();
-        new ForumDaoImpl().save(forum);
-        doGet(req,resp);
+
     }
 
-    private int generateId() {
-        try {
-            Statement statement = connection.createStatement();
-            String sql = "SELECT MAX(id) FROM schema.forum";
-            ResultSet resultSet = statement.executeQuery(sql);
-            if (resultSet.next()) {
-                return resultSet.getInt(1) + 1;
-            } else {
-                return 0;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }

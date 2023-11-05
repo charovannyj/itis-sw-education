@@ -31,33 +31,19 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+        HttpSession httpSession = req.getSession();
         login = req.getParameter("login");
         password = req.getParameter("password");
         try {
-            session.setAttribute("id",getId());
-            session.setAttribute("login", login);
-            session.setAttribute("password", password);
-            session.setAttribute("date", getDate());
-            session.setAttribute("gender", getGender());
-            session.setAttribute("name", getName());
-            session.setAttribute("position", getPosition());
-            //можно выделить в отдельный метод, надо поиграться со статиками
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        try {
             if (loginIsExist() && password.equals(getPassword())) {
-                HttpSession httpSession = req.getSession();
-                httpSession.setAttribute("login", login);
-                httpSession.setAttribute("fullName", getName());
+                setAttributes(httpSession);
                 httpSession.setMaxInactiveInterval(60 * 60);
 
-                Cookie cookie = new Cookie("login", login);
+                Cookie cookie = new Cookie("login", getLogin());
                 cookie.setMaxAge(24 * 60 * 60);
                 resp.addCookie(cookie);
 
-                resp.sendRedirect("/main");
+                resp.sendRedirect("main");
             } else {
                 doGet(req, resp);
             }
@@ -65,11 +51,19 @@ public class LoginServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-
+    private void setAttributes(HttpSession httpSession) throws SQLException {
+        httpSession.setAttribute("id",getId());
+        httpSession.setAttribute("login", getLogin());
+        httpSession.setAttribute("password", getPassword());
+        httpSession.setAttribute("date", getDate());
+        httpSession.setAttribute("gender", getGender());
+        httpSession.setAttribute("name", getName());
+        httpSession.setAttribute("position", getPosition());
+    }
     private boolean loginIsExist() throws SQLException {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM schema.users WHERE login='" + login + "'";
+            String sql = "SELECT * FROM schema.users WHERE login='" + getLogin() + "'";
             ResultSet resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
                 return true;
@@ -83,7 +77,7 @@ public class LoginServlet extends HttpServlet {
     private String getId() throws SQLException {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM schema.users WHERE login='" + login + "'";
+            String sql = "SELECT * FROM schema.users WHERE login='" + getLogin() + "'";
             ResultSet resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
                 return resultSet.getString("id");
@@ -97,7 +91,7 @@ public class LoginServlet extends HttpServlet {
     private String getName() throws SQLException {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM schema.users WHERE login='" + login + "'";
+            String sql = "SELECT * FROM schema.users WHERE login='" + getLogin() + "'";
             ResultSet resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
                 return resultSet.getString("name");
@@ -116,7 +110,7 @@ public class LoginServlet extends HttpServlet {
     private String getDate() throws SQLException {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM schema.users WHERE login='" + login + "'";
+            String sql = "SELECT * FROM schema.users WHERE login='" + getLogin() + "'";
             ResultSet resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
                 return resultSet.getString("date");
@@ -131,7 +125,7 @@ public class LoginServlet extends HttpServlet {
     private String getPassword() throws SQLException {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM schema.users WHERE login='" + login + "'";
+            String sql = "SELECT * FROM schema.users WHERE login='" + getLogin() + "'";
             ResultSet resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
                 return resultSet.getString("password");
@@ -146,7 +140,7 @@ public class LoginServlet extends HttpServlet {
     private String getGender() throws SQLException {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM schema.users WHERE login='" + login + "'";
+            String sql = "SELECT * FROM schema.users WHERE login='" + getLogin() + "'";
             ResultSet resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
                 return resultSet.getString("gender");
@@ -161,7 +155,7 @@ public class LoginServlet extends HttpServlet {
     private String getPosition() throws SQLException {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM schema.users WHERE login='" + login + "'";
+            String sql = "SELECT * FROM schema.users WHERE login='" + getLogin() + "'";
             ResultSet resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
                 return resultSet.getString("position");

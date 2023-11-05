@@ -1,27 +1,8 @@
 <!DOCTYPE html>
-<html>
-<#include "base.ftl">
-
+<html lang="en">
 <head>
-    <title>Buttons Example</title>
-    <link rel="stylesheet" type="text/css" href="myeducation.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-        $(document).on("click", "#ajax-button-schedule", function () {
-            $("#ajax-response").text("Расписания еще нет, т.к. вы не учитесь");
-        });
-    </script>
-    <script>
-        $(document).on("click", "#ajax-button-home-tasks", function () {
-            $("#ajax-response").text("Домашнего задания еще нет, т.к. вы не учитесь");
-        });
-    </script>
-    <script>
-        $(document).on("click", "#ajax-button-statistics", function () {
-            $("#ajax-response").text("Статистики еще нет, т.к. вы не учитесь");
-        });
-    </script>
+    <meta charset="UTF-8">
+    <title>Title</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
@@ -61,14 +42,11 @@
         </form>
     </div>
 </nav>
-<div class="buttons-container">
-    <button class="schedule" id="ajax-button-schedule">Расписание</button>
-    <button class="home-tasks" id="ajax-button-home-tasks">Домашние задания</button>
-    <button class="statistics" id="ajax-button-statistics">Статистика</button>
-</div>
-<div id="ajax-response">
+<form action="forum" method="post">
+  <textarea name="message" placeholder="Введите сообщение" charset="UTF-8"></textarea>
+  <input type="submit"></form>
 
-</div>
+${forums}
 
 <script src="js/bootstrap.bundle.min.js"></script>
 </body>

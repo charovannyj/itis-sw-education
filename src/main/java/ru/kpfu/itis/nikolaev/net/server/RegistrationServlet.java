@@ -38,7 +38,6 @@ public class RegistrationServlet extends HttpServlet {
         String gender = req.getParameter("gender");
         String position = req.getParameter("position");
         if (validateName(name)&&validateLogin(login)&&validateDate(date)&&validatePassword(password)){
-            req.setAttribute("registrationError","Correct data");
             try {
                 if (!loginIsExist(login)) {
                     User newUser = User.builder()
@@ -62,7 +61,8 @@ public class RegistrationServlet extends HttpServlet {
         }
         else{
             req.setAttribute("registrationError","Incorrect data");
-            resp.getWriter().println("Incorrect data");
+            req.getRequestDispatcher("registration.ftl").forward(req,resp);
+            //resp.getWriter().println("Incorrect data");
         }
     }
 

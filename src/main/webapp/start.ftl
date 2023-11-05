@@ -15,6 +15,7 @@
             window.location.href = "/registration";
         }
     </script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 <br>
@@ -22,5 +23,7 @@
 
 <button onclick="goToLogin()">У меня есть аккаунт</button>
 <button onclick="goToRegistration()">Я тут новенький</button>
+
+<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
