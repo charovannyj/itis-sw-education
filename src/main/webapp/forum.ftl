@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <#--<script>
+        $.get("forum", function(data) {
+            var forums = data.forums; // получаем атрибут "forums" из ответа сервера
+            $("#ajax-response").text(forums); // выводим значение атрибута в элемент
+        });
+    </script>-->
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -12,8 +19,6 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-
         <div class="collapse navbar-collapse " id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -44,8 +49,10 @@
 </nav>
 <form action="forum" method="post">
   <textarea name="message" placeholder="Введите сообщение" charset="UTF-8"></textarea>
-  <input type="submit"></form>
+  <input type="submit" charset="UTF-8"></form>
+<#--<div id="ajax-response">
 
+</div>-->
 ${forums}
 
 <script src="js/bootstrap.bundle.min.js"></script>

@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+    </style>
+    <style>
+        .center {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -42,6 +52,50 @@
         </form>
     </div>
 </nav>
+<div class="center">
+    <h1>${subject}</h1>
+</div>
+<div class="container">
+    <div class="row justify-content-around row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${names[0]} ${areas[0]}</h5>
+                    <p class="card-text">${contents[0]}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${names[1]} ${areas[1]}</h5>
+                    <p class="card-text">${contents[1]}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${names[2]} ${areas[2]}</h5>
+                    <p class="card-text">${contents[2]}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${names[3]} ${areas[3]}</h5>
+                    <p class="card-text">${contents[3]}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

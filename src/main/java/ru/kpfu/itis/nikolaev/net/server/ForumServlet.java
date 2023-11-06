@@ -25,8 +25,6 @@ public class ForumServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html; charset=UTF-8");
         List<Forum> forums = new ForumDaoImpl().getAll(); // Получаем данные из базы данных
         StringBuilder sb = new StringBuilder();
         for(Forum forumik : forums){
@@ -34,6 +32,9 @@ public class ForumServlet extends HttpServlet {
         }
         req.setAttribute("forums", sb);
         req.getRequestDispatcher("forum.ftl").forward(req,resp);
+        /*List<Forum> forums = new ForumDaoImpl().getAll();
+        req.setAttribute("forums",forums);
+        req.getRequestDispatcher("forum.ftl").forward(req,resp);*/
     }
 
     @Override
