@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script>
+    <#--<script>
         $('#person-select').on('change', function() {
             var personId = $(this).val();
             $.ajax({
@@ -16,8 +16,16 @@
                 }
             });
         });
-    </script>
-
+    </script>-->
+    <style>
+        .card {
+            margin-top: 20px;
+            background: #cdf6ff;
+        }
+        .textarea {
+            width: 50%;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -56,19 +64,62 @@
         </form>
     </div>
 </nav>
-<form>
-    <div class="form-group">
-        <label for="person-select">Выберите человека:</label>
-        <select class="form-control" id="person-select">
-            <option value="1">Женя</option>
-            <option value="2">Саша</option>
-        </select>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <form action="rating" method="post">
+            <div class="form-group">
+                <label for="person-select">Выберите предмет:</label>
+                <select name="subject" class="form-control" id="subject-select">
+                    <#list subjects as subject>
+                        <option value=${subject}>${subject}</option>
+                    </#list>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="action-select">Выберите курс:</label>
+                <select name="area" class="form-control" id="area-select">
+                    <#list areas as area>
+                        <option value=${area}>${area}</option>
+                    </#list>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="action-select">Выберите преподавателя:</label>
+                <select name="name" class="form-control" id="name-select">
+                    <#list names as name>
+                        <option value=${name}>${name}</option>
+                    </#list>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="action-select">Укажите оценку:</label>
+                <select name="grade" class="form-control" id="name-select">
+                    <option value="1 балл">1</option>
+                    <option value="2 балла">2</option>
+                    <option value="3 балла">3</option>
+                    <option value="4 балла">4</option>
+                    <option value="5 баллов">5</option>
+                </select>
+            </div>
+            <textarea class="textarea" name="message" placeholder="Напишите свой отзыв" charset="UTF-8"></textarea>
+
+            <input type="submit">
+        </form>
+        <#list ratings as rating>
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">${rating.login_user} оценил учителя ${rating.teacher} по предмету ${rating.subject} ${rating.area} на ${rating.grade}</h6>
+                    <p class="card-text">${rating.content}</p>
+                </div>
+            </div>
+        </#list>
     </div>
-    <div class="form-group">
-        <label for="action-select">Выберите действие:</label>
-        <select class="form-control" id="action-select"></select>
-    </div>
-</form>
+</div>
+
+
+
 
 <script src="js/bootstrap.bundle.min.js"></script>
 </body>

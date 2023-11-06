@@ -27,10 +27,10 @@
     <br>
     <br>
     Gender:
+    <br>
     M:<input type="radio" name="gender" checked value="M">
     W:<input type="radio" name="gender" checked value="W">
     <br>
-    доделать табуляцию у гендера
     <br>
     Position:
     <br>

@@ -19,7 +19,9 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet(name = "ratingServlet", urlPatterns = "/rating")
 
@@ -37,20 +39,84 @@ public class RatingServlet extends HttpServlet {
         }
         req.setAttribute("ratings", sb);
         req.getRequestDispatcher("rating.ftl").forward(req,resp);*/
-
-        int personId = Integer.parseInt(req.getParameter("personId"));
+        /*int personId = Integer.parseInt(req.getParameter("personId"));
         List<String> subjects = getSubjectsForPerson(personId);
         String optionsHtml = "";
         for (String subject : subjects) {
             optionsHtml += "<option value='" + getId(subject) + "'>" + subject + "</option>";
         }
         resp.setContentType("text/html");
-        resp.getWriter().write(optionsHtml);
+        resp.getWriter().write(optionsHtml);*/
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        req.setAttribute("names", getNamesTeacher());
+        req.setAttribute("areas", getAreas());
+        req.setAttribute("subjects", getSubjects());
+        req.setAttribute("ratings", new RatingDaoImpl().getAll());
+        req.getRequestDispatcher("rating.ftl").forward(req,resp);
     }
-    private List<String> getSubjectsForPerson(int id){
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        int id = generateId();
+        String login = req.getSession().getAttribute("login").toString();
+        String content = req.getParameter("message");
+        String name = req.getParameter("name");
+        String area = req.getParameter("area");
+        String grade = req.getParameter("grade");
+        String subject = req.getParameter("subject");
+        Rating rating = Rating.builder()
+                .id(id)
+                .subject(subject)
+                .teacher(name)
+                .content(content)
+                .grade(grade)
+                .login_user(login)
+                .area(area)
+                .build();
+        new RatingDaoImpl().save(rating);
+        doGet(req,resp);
+    }
+    private Set<String> getNamesTeacher(){
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM schema.teachers WHERE id='" + id + "'";
+            String sql = "SELECT * FROM schema.teachers";
+            ResultSet resultSet = statement.executeQuery(sql);
+            List<String> names = new ArrayList<>();
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    names.add(resultSet.getString("name")
+                    );
+                }
+            }
+            return new HashSet<>(names);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private Set<String> getAreas(){
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM schema.teachers";
+            ResultSet resultSet = statement.executeQuery(sql);
+            List<String> names = new ArrayList<>();
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    names.add(resultSet.getString("area")
+                    );
+                }
+            }
+            return new HashSet<>(names);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Set<String> getSubjects(){
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM schema.teachers";
             ResultSet resultSet = statement.executeQuery(sql);
             List<String> names = new ArrayList<>();
             if (resultSet != null) {
@@ -59,47 +125,10 @@ public class RatingServlet extends HttpServlet {
                     );
                 }
             }
-            return names;
+            return new HashSet<>(names);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-    private List<String> getId(String subject){
-        try {
-            Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM schema.teachers WHERE subject='" + subject + "'";
-            ResultSet resultSet = statement.executeQuery(sql);
-            List<String> names = new ArrayList<>();
-            if (resultSet != null) {
-                while (resultSet.next()) {
-                    names.add(resultSet.getString("id")
-                    );
-                }
-            }
-            return names;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        int id = generateId();
-        String login = req.getSession().getAttribute("login").toString();
-        String time = LocalDate.now() + " " + String.valueOf(LocalTime.now()).substring(0,8);
-        String content = req.getParameter("message");
-        Rating rating = Rating.builder()
-                .id(id)
-                .course(course)
-                .teacher(teacher)
-                .content(content)
-                .grade(grade)
-                .login_user(login)
-                .build();
-        new RatingDaoImpl().save(rating);*/
-        doGet(req,resp);
     }
     private int generateId() {
         try {

@@ -11,6 +11,15 @@
             $("#ajax-response").text(forums); // выводим значение атрибута в элемент
         });
     </script>-->
+    <style>
+        .card {
+            margin-top: 20px;
+            background: #cdf6ff;
+        }
+        .textarea {
+            width: 50%;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -47,13 +56,27 @@
         </form>
     </div>
 </nav>
-<form action="forum" method="post">
-  <textarea name="message" placeholder="Введите сообщение" charset="UTF-8"></textarea>
-  <input type="submit" charset="UTF-8"></form>
+
 <#--<div id="ajax-response">
 
 </div>-->
-${forums}
+<#--${forums}-->
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <form action="forum" method="post">
+            <textarea class="textarea" name="message" placeholder="Введите сообщение" charset="UTF-8"></textarea>
+            <input type="submit" charset="UTF-8">
+        </form>
+        <#list reviews as review>
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">${review.login_user} в ${review.time}</h6>
+                    <p class="card-text">${review.content}</p>
+                </div>
+            </div>
+        </#list>
+    </div>
+</div>
 
 <script src="js/bootstrap.bundle.min.js"></script>
 </body>

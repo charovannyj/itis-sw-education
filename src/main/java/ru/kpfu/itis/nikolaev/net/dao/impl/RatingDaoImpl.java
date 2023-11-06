@@ -1,9 +1,7 @@
 package ru.kpfu.itis.nikolaev.net.dao.impl;
 
 import ru.kpfu.itis.nikolaev.net.dao.Dao;
-import ru.kpfu.itis.nikolaev.net.model.Forum;
 import ru.kpfu.itis.nikolaev.net.model.Rating;
-import ru.kpfu.itis.nikolaev.net.model.User;
 import ru.kpfu.itis.nikolaev.net.util.DatabaseConnectionUtil;
 
 import java.sql.*;
@@ -21,7 +19,7 @@ public class RatingDaoImpl implements Dao<Rating> {
     public List<Rating> getAll() {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * from schema.ratings";
+            String sql = "SELECT * from schema.ratings ORDER BY id DESC";
             ResultSet resultSet = statement.executeQuery(sql);
             List<Rating> ratings = new ArrayList<>();
             if (resultSet != null) {
@@ -29,11 +27,12 @@ public class RatingDaoImpl implements Dao<Rating> {
                     ratings.add(
                             new Rating(
                                     resultSet.getInt("id"),
-                                    resultSet.getInt("id_user"),
-                                    resultSet.getString("course"),
+                                    resultSet.getString("login_user"),
+                                    resultSet.getString("grade"),
+                                    resultSet.getString("subject"),
+                                    resultSet.getString("area"),
                                     resultSet.getString("teacher"),
-                                    resultSet.getString("content"),
-                                    resultSet.getInt("grade")
+                                    resultSet.getString("content")
                                     )
                     );
                 }
@@ -46,14 +45,15 @@ public class RatingDaoImpl implements Dao<Rating> {
 
     @Override
     public void save(Rating rating) {
-        String query = "INSERT INTO schema.ratings (id, id_user, course, teacher, content, grade) VALUES (?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO schema.ratings (id, login_user, grade, subject, area, teacher, content) VALUES (?, ?, ?, ?, ?, ?, ?);";
         try (PreparedStatement preparedStatement = DatabaseConnectionUtil.getConnection().prepareStatement(query)) {
             preparedStatement.setInt(1, rating.getId());
-            preparedStatement.setInt(2, rating.getId_user());
-            preparedStatement.setString(3, rating.getCourse());
-            preparedStatement.setString(4, rating.getTeacher());
-            preparedStatement.setString(5, rating.getContent());
-            preparedStatement.setInt(6, rating.getGrade());
+            preparedStatement.setString(2, rating.getLogin_user());
+            preparedStatement.setString(3, rating.getGrade());
+            preparedStatement.setString(4, rating.getSubject());
+            preparedStatement.setString(5, rating.getArea());
+            preparedStatement.setString(6, rating.getTeacher());
+            preparedStatement.setString(7, rating.getContent());
             preparedStatement.execute();
         } catch (SQLException exception) {
             throw new RuntimeException(exception);

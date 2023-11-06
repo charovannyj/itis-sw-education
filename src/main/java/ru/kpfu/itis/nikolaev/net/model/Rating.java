@@ -7,19 +7,21 @@ import lombok.Data;
 @Builder
 public class Rating {
     private int id;
-    private int id_user;
-    private String course;
+    private String login_user;
+    private String grade;
+    private String subject;
+    private String area;
     private String teacher;
     private String content;
-    private int grade;
 
-    public Rating(int id, int id_user, String course, String teacher, String content, int grade) {
+    public Rating(int id, String login_user, String grade, String subject, String area, String teacher, String content) {
         this.id = id;
-        this.id_user = id_user;
-        this.course = course;
+        this.login_user = login_user;
+        this.grade = grade;
+        this.subject = subject;
+        this.area = area;
         this.teacher = teacher;
         this.content = content;
-        this.grade = grade;
     }
 
     public int getId() {
@@ -30,20 +32,36 @@ public class Rating {
         this.id = id;
     }
 
-    public int getId_user() {
-        return id_user;
+    public String getLogin_user() {
+        return login_user;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setLogin_user(String login_user) {
+        this.login_user = login_user;
     }
 
-    public String getCourse() {
-        return course;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getTeacher() {
@@ -60,13 +78,5 @@ public class Rating {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public int getGrade() {
-        return grade;
-    }
-
-    public void setGrade(int grade) {
-        this.grade = grade;
     }
 }

@@ -31,13 +31,15 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String name = req.getParameter("name");
         String login = req.getParameter("login");
         String date = req.getParameter("date");
         String password = req.getParameter("password");
         String gender = req.getParameter("gender");
         String position = req.getParameter("position");
-        if (validateName(name)&&validateLogin(login)&&validateDate(date)&&validatePassword(password)){
+        if (validateName(name)&&validateLogin(login)&&validatePassword(password)){
             try {
                 if (!loginIsExist(login)) {
                     User newUser = User.builder()
@@ -105,9 +107,5 @@ public class RegistrationServlet extends HttpServlet {
     private boolean validatePassword(String password){
         String regex = "^.{8,}$";
         return password.matches(regex);
-    }
-    private boolean validateDate(String date){
-        String regex = "^\\d{4}-\\d{2}-\\d{2}$";
-        return date.matches(regex);
     }
 }
