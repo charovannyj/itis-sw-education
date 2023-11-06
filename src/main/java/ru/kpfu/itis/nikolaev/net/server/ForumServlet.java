@@ -25,6 +25,8 @@ public class ForumServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         List<Forum> forums = new ForumDaoImpl().getAll(); // Получаем данные из базы данных
         StringBuilder sb = new StringBuilder();
         for(Forum forumik : forums){
@@ -39,6 +41,8 @@ public class ForumServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         int id = generateId();
         String login = req.getSession().getAttribute("login").toString();
         String time = LocalDate.now() + " " + String.valueOf(LocalTime.now()).substring(0,8);

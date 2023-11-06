@@ -19,12 +19,21 @@ import java.util.List;
 
 public class ProgrammingServlet extends HttpServlet {
     private String subject = "Программирование";
-    private String k = "аыкаы";
     private final Connection connection = DatabaseConnectionUtil.getConnection();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect("programming.ftl");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        List names = getNames();
+        List areas = getAreas();
+        List contents = getContents();
+        List photos = getPhotos();
+        req.setAttribute("subject", subject);
+        req.setAttribute("names", names);
+        req.setAttribute("areas", areas);
+        req.setAttribute("contents", contents);
+        req.setAttribute("photos", photos);
+
+        req.getRequestDispatcher("programming.ftl").forward(req,resp);
 
     }
 

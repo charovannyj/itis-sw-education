@@ -63,7 +63,8 @@
         <div class="card-body">
           <h5 class="card-title">${names[0]} ${areas[0]}</h5>
           <p class="card-text">${contents[0]}</p>
-        </div>
+          <a href="/congratulation?name=${names[0]}&area=${areas[0]}&subject=${subject}" class="btn btn-primary">Записаться на курс</a>
+      </div>
       </div>
     </div>
     <div class="col">
@@ -72,6 +73,7 @@
         <div class="card-body">
           <h5 class="card-title">${names[1]} ${areas[1]}</h5>
           <p class="card-text">${contents[1]}</p>
+          <a href="/congratulation?name=${names[1]}&area=${areas[1]}&subject=${subject}" class="btn btn-primary">Записаться на курс</a>
         </div>
       </div>
     </div>
@@ -81,6 +83,7 @@
         <div class="card-body">
           <h5 class="card-title">${names[2]} ${areas[2]}</h5>
           <p class="card-text">${contents[2]}</p>
+          <a href="/congratulation?name=${names[2]}&area=${areas[2]}&subject=${subject}" class="btn btn-primary">Записаться на курс</a>
         </div>
       </div>
     </div>
@@ -90,6 +93,7 @@
         <div class="card-body">
           <h5 class="card-title">${names[3]} ${areas[3]}</h5>
           <p class="card-text">${contents[3]}</p>
+          <a href="/congratulation?name=${names[3]}&area=${areas[3]}&subject=${subject}" class="btn btn-primary">Записаться на курс</a>
         </div>
       </div>
     </div>

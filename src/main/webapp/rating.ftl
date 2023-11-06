@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script>
+        $('#person-select').on('change', function() {
+            var personId = $(this).val();
+            $.ajax({
+                url: '/rating',
+                type: 'GET',
+                data: { personId: personId },
+                success: function(data) {
+                    $('#action-select').html(data);
+                }
+            });
+        });
+    </script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -42,7 +56,19 @@
         </form>
     </div>
 </nav>
-
+<form>
+    <div class="form-group">
+        <label for="person-select">Выберите человека:</label>
+        <select class="form-control" id="person-select">
+            <option value="1">Женя</option>
+            <option value="2">Саша</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="action-select">Выберите действие:</label>
+        <select class="form-control" id="action-select"></select>
+    </div>
+</form>
 
 <script src="js/bootstrap.bundle.min.js"></script>
 </body>
