@@ -31,7 +31,9 @@ public class CourseDaoImpl implements Dao<Course> {
                                     resultSet.getInt("id"),
                                     resultSet.getString("name"),
                                     resultSet.getInt("price"),
-                                    resultSet.getInt("duration")
+                                    resultSet.getInt("duration"),
+                                    resultSet.getString("subject"),
+                                    resultSet.getString("area")
                             )
                     );
                 }
@@ -44,12 +46,14 @@ public class CourseDaoImpl implements Dao<Course> {
 
     @Override
     public void save(Course course) {
-        String query = "INSERT INTO schema.courses (id, name, price, duration) VALUES (?, ?, ?, ?);";
+        String query = "INSERT INTO schema.courses (id, name, price, duration,subject,area) VALUES (?, ?, ?, ?, ?, ?);";
         try (PreparedStatement preparedStatement = DatabaseConnectionUtil.getConnection().prepareStatement(query)) {
             preparedStatement.setInt(1, course.getId());
             preparedStatement.setString(2, course.getName());
             preparedStatement.setInt(3, course.getPrice());
             preparedStatement.setInt(4, course.getDuration());
+            preparedStatement.setString(5, course.getSubject());
+            preparedStatement.setString(6, course.getArea());
             preparedStatement.execute();
         } catch (SQLException exception) {
             throw new RuntimeException(exception);

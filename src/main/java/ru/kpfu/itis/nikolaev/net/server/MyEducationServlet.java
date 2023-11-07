@@ -1,5 +1,7 @@
 package ru.kpfu.itis.nikolaev.net.server;
 
+import ru.kpfu.itis.nikolaev.net.dao.impl.CourseDaoImpl;
+import ru.kpfu.itis.nikolaev.net.dao.impl.ForumDaoImpl;
 import ru.kpfu.itis.nikolaev.net.util.DatabaseConnectionUtil;
 
 import javax.servlet.ServletException;
@@ -17,7 +19,10 @@ public class MyEducationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("myeducation.ftl");
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        req.setAttribute("courses", new CourseDaoImpl().getAll());
+        req.getRequestDispatcher("myeducation.ftl").forward(req,resp);
 
     }
 

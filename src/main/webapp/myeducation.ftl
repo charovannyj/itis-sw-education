@@ -7,21 +7,12 @@
     <link rel="stylesheet" type="text/css" href="myeducation.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        $(document).on("click", "#ajax-button-schedule", function () {
-            $("#ajax-response").text("Расписания еще нет, т.к. вы не учитесь");
-        });
-    </script>
-    <script>
-        $(document).on("click", "#ajax-button-home-tasks", function () {
-            $("#ajax-response").text("Домашнего задания еще нет, т.к. вы не учитесь");
-        });
-    </script>
-    <script>
-        $(document).on("click", "#ajax-button-statistics", function () {
-            $("#ajax-response").text("Статистики еще нет, т.к. вы не учитесь");
-        });
-    </script>
+    <style>
+        .card {
+            margin-top: 20px;
+            background: #cdf6ff;
+        }
+    </style>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
@@ -61,14 +52,28 @@
         </form>
     </div>
 </nav>
-<div class="buttons-container">
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <#list courses as course>
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">${course.subject} ${course.area}</h6>
+                    <p class="card-text">Преподаватель: ${course.name}<br>Цена: ${course.price}
+                    <br>Длительность курса: ${course.duration}</p>
+                </div>
+            </div>
+        </#list>
+    </div>
+</div>
+<#--<div class="buttons-container">
     <button class="schedule" id="ajax-button-schedule">Расписание</button>
     <button class="home-tasks" id="ajax-button-home-tasks">Домашние задания</button>
     <button class="statistics" id="ajax-button-statistics">Статистика</button>
 </div>
 <div id="ajax-response">
 
-</div>
+</div>-->
 
 <script src="js/bootstrap.bundle.min.js"></script>
 </body>
