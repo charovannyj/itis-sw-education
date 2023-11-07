@@ -68,17 +68,17 @@ public class UserDaoImpl implements Dao<User> {
 
     @Override
     public void save(User user) {
-        String sql = "insert into schema.users (id, name, login, date, password, gender, position,photo) values (?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "update schema.users set name=?, login=?, date=?, password=?, gender=?, position=?, photo=? where id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getLogin());
-            preparedStatement.setString(4, user.getDate());
-            preparedStatement.setString(5, user.getPassword());
-            preparedStatement.setString(6, user.getGender());
-            preparedStatement.setString(7, user.getPosition());
-            preparedStatement.setString(8,user.getPhoto());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getLogin());
+            preparedStatement.setString(3, user.getDate());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, user.getGender());
+            preparedStatement.setString(6, user.getPosition());
+            preparedStatement.setString(7,user.getPhoto());
+            preparedStatement.setInt(8, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

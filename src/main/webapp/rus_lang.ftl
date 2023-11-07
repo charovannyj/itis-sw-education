@@ -18,10 +18,10 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid text-bg-warning p-3">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <#--<a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <span class="navbar-toggler-icon"></span>
+    </button>-->
 
 
     <div class="collapse navbar-collapse " id="navbarNav">
@@ -59,7 +59,7 @@
   <div class="row justify-content-around row-cols-1 row-cols-md-2 g-4">
     <div class="col">
       <div class="card">
-        <img src="..." class="card-img-top" alt="...">
+        <img src="${photos[0]}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${names[0]} ${areas[0]}</h5>
           <p class="card-text">${contents[0]}</p>
@@ -69,7 +69,7 @@
     </div>
     <div class="col">
       <div class="card">
-        <img src="..." class="card-img-top" alt="...">
+        <img src="${photos[1]}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${names[1]} ${areas[1]}</h5>
           <p class="card-text">${contents[1]}</p>
@@ -79,7 +79,7 @@
     </div>
     <div class="col">
       <div class="card">
-        <img src="..." class="card-img-top" alt="...">
+        <img src="${photos[2]}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${names[2]} ${areas[2]}</h5>
           <p class="card-text">${contents[2]}</p>
@@ -89,7 +89,7 @@
     </div>
     <div class="col">
       <div class="card">
-        <img src="..." class="card-img-top" alt="...">
+        <img src="${photos[3]}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${names[3]} ${areas[3]}</h5>
           <p class="card-text">${contents[3]}</p>

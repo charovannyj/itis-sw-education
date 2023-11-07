@@ -35,7 +35,7 @@ public class FileUploadingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("upload.ftl");
+
     }
 
     @Override
@@ -69,7 +69,6 @@ public class FileUploadingServlet extends HttpServlet {
 
         user.setPhoto(url);
         userDao.save(user);
-
         resp.sendRedirect("/profile");
     }
 }

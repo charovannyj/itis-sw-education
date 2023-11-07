@@ -97,25 +97,30 @@
     <form method="post" action="/profile" enctype="multipart/form-data">
         <input type="text" name="newPassword" id="change-password">
         <button type="submit">Сменить пароль</button>
-        <input type="file" name="newPhoto" id="add-photo">
-        <button type="submit">Добавить фотографию</button>
+    </form>
+    <form action="upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <br>
+        <input type="submit" value="upload">
     </form>
 </div>
-<div class="education-photo">
-    <img>
-</div>
-<div class="data-profile">
-    <p class="name">Полное имя: ${name}</p>
-    <br>
-    <p class="login">Логин: ${login}</p>
-    <br>
-    <p class="date">Дата рождения: ${date}</p>
-    <br>
-    <p class="position">Должность: ${position}</p>
-    <br>
-    <p class="gender">Пол: ${gender}</p>
-    <br>
-    <img src=${photo}>
+<div class="row">
+    <div class="col-md-6 education-photo">
+        <img>
+    </div>
+    <div class="col-md-6 data-profile">
+        <p class="name">Полное имя: ${name}</p>
+        <br>
+        <p class="login">Логин: ${login}</p>
+        <br>
+        <p class="date">Дата рождения: ${date}</p>
+        <br>
+        <p class="position">Должность: ${position}</p>
+        <br>
+        <p class="gender">Пол: ${gender}</p>
+        <br>
+        <img src=${photo} style="max-width:25%">
+    </div>
 </div>
 
 <script src="js/bootstrap.bundle.min.js"></script>

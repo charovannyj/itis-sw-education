@@ -32,8 +32,8 @@ public class MainServlet extends HttpServlet {
             sb.append(forumik.toString()).append("<br><br>");
         }
         req.setAttribute("forums", sb); // Передаем данные в шаблон*/
-        resp.sendRedirect("main.html");
-        //req.getRequestDispatcher("main.html").forward(req, resp);
+        resp.sendRedirect("main.ftl");
+        //req.getRequestDispatcher("main.ftl").forward(req, resp);
         /*List<Forum> forums = new ForumDaoImpl().getAll();
         req.setAttribute("forums", forums);*/
     }

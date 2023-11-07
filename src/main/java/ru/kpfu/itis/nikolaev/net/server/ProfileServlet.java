@@ -30,27 +30,21 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String newPassword = req.getParameter("newPassword");
-        Part photoPart = req.getPart("newPhoto");
-        InputStream photoStream = photoPart.getInputStream();
-        try {
-            changePassword(newPassword);
-            addPhoto(photoStream);
+        if (newPassword!=null){
+            try {
+                changePassword(newPassword);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             resp.sendRedirect("/login");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
+        else{
+            req.getRequestDispatcher("profile.ftl").forward(req,resp);
+        }
+
+
     }
 
-    private void addPhoto(InputStream photoStream) throws SQLException {
-        try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE schema.users SET photo = ? WHERE login = ?");
-            statement.setBinaryStream(1, photoStream);
-            statement.setString(2, login);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     private void changePassword(String newPassword) throws SQLException {
