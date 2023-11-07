@@ -1,4 +1,4 @@
-package ru.kpfu.itis.nikolaev.net.filter;
+/*package ru.kpfu.itis.nikolaev.net.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -39,4 +39,4 @@ public class AuthenticationFilter implements Filter {
     public void destroy() {
         Filter.super.destroy();
     }
-}
+}*/

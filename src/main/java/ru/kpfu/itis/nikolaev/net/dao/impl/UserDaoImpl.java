@@ -14,7 +14,27 @@ public class UserDaoImpl implements Dao<User> {
 
     @Override
     public User get(int id) {
-        return null;
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM schema.users WHERE id = ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("login"),
+                        resultSet.getString("date"),
+                        resultSet.getString("password"),
+                        resultSet.getString("gender"),
+                        resultSet.getString("position"),
+                        resultSet.getString("photo")
+                );
+            } else {
+                return null; // Если пользователь с указанным id не найден
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -34,7 +54,8 @@ public class UserDaoImpl implements Dao<User> {
                                     resultSet.getString("date"),
                                     resultSet.getString("password"),
                                     resultSet.getString("gender"),
-                                    resultSet.getString("position")
+                                    resultSet.getString("position"),
+                                    resultSet.getString("photo")
                             )
                     );
                 }
@@ -47,7 +68,7 @@ public class UserDaoImpl implements Dao<User> {
 
     @Override
     public void save(User user) {
-        String sql = "insert into schema.users (id, name, login, date, password, gender, position) values (?, ?, ?, ?, ?, ?, ?);";
+        String sql = "insert into schema.users (id, name, login, date, password, gender, position,photo) values (?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, user.getId());
@@ -57,6 +78,7 @@ public class UserDaoImpl implements Dao<User> {
             preparedStatement.setString(5, user.getPassword());
             preparedStatement.setString(6, user.getGender());
             preparedStatement.setString(7, user.getPosition());
+            preparedStatement.setString(8,user.getPhoto());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

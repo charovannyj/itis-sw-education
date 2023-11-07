@@ -58,10 +58,10 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid text-bg-warning p-3">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <#--<a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button>-->
 
 
         <div class="collapse navbar-collapse " id="navbarNav">
@@ -92,15 +92,7 @@
         </form>
     </div>
 </nav>
-<div class="container">
-    <a href="/main"><img class="logo" src="logo.png" alt="Logo Image"></a>
-    <p class="welcome-message">${name}, добро пожаловать на нашу платформу онлайн-образования!</p>
-    <img class="profile" src="profile.png" alt="Profile Image" onclick="openProfileOptions()">
-    <div id="profileOptions" style="display: none;">
-        <a href="/profile">Профиль</a>
-        <a href="/start">Выход</a>
-    </div>
-</div>
+
 <div class="buttons-container">
     <form method="post" action="/profile" enctype="multipart/form-data">
         <input type="text" name="newPassword" id="change-password">
@@ -123,6 +115,7 @@
     <br>
     <p class="gender">Пол: ${gender}</p>
     <br>
+    <img src=${photo}>
 </div>
 
 <script src="js/bootstrap.bundle.min.js"></script>

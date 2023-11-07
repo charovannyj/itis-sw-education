@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 
+import static ru.kpfu.itis.nikolaev.net.server.LoginServlet.login;
+
 @WebServlet(name = "profileServlet", urlPatterns = "/profile")
 @MultipartConfig
 public class ProfileServlet extends HttpServlet {
@@ -17,7 +19,12 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("profile.ftl");
+        try {
+            req.setAttribute("photo", getPhoto());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        req.getRequestDispatcher("profile.ftl").forward(req,resp);
     }
 
     @Override
@@ -38,7 +45,7 @@ public class ProfileServlet extends HttpServlet {
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE schema.users SET photo = ? WHERE login = ?");
             statement.setBinaryStream(1, photoStream);
-            statement.setString(2, LoginServlet.login);
+            statement.setString(2, login);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -50,8 +57,22 @@ public class ProfileServlet extends HttpServlet {
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE schema.users SET password = ? WHERE login = ?");
             statement.setString(1, newPassword);
-            statement.setString(2, LoginServlet.login);
+            statement.setString(2, login);
             statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private String getPhoto() throws SQLException {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM schema.users WHERE login='" + login + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                return resultSet.getString("photo");
+            } else {
+                throw new RuntimeException("User not found");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

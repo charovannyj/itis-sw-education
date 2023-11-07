@@ -8,6 +8,7 @@
   <properties>
     <maven.compiler.source>18</maven.compiler.source>
     <maven.compiler.target>18</maven.compiler.target>
+    <cloudinary.version>1.34.0</cloudinary.version>
   </properties>
   <name>ru.itis Maven Webapp</name>
   <url>http://maven.apache.org</url>
@@ -53,7 +54,17 @@
       <version>1.18.30</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>com.cloudinary</groupId>
+      <artifactId>cloudinary-core</artifactId>
+      <version>${cloudinary.version}</version>
+    </dependency>
 
+    <dependency>
+      <groupId>com.cloudinary</groupId>
+      <artifactId>cloudinary-http44</artifactId>
+      <version>${cloudinary.version}</version>
+    </dependency>
   </dependencies>
 
   <build>

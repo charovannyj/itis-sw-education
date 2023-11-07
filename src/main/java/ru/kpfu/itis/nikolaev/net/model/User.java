@@ -17,8 +17,17 @@ public class User {
     private String password;
     private String gender;
     private String position;
+    private String photo;
 
-    public User(int id, String name, String login, String date, String password, String gender, String position) {
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public User(int id, String name, String login, String date, String password, String gender, String position, String photo) {
         this.id = id;
         this.name = name;
         this.login = login;
@@ -26,6 +35,7 @@ public class User {
         this.password = password;
         this.gender = gender;
         this.position = position;
+        this.photo = photo;
     }
 
     public int getId() {
