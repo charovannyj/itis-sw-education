@@ -1,9 +1,10 @@
 package ru.kpfu.itis.nikolaev.net.server;
 
-import ru.kpfu.itis.nikolaev.net.dao.impl.ForumDaoImpl;
+import ru.kpfu.itis.nikolaev.net.dao.Dao;
 import ru.kpfu.itis.nikolaev.net.model.Forum;
 import ru.kpfu.itis.nikolaev.net.util.DatabaseConnectionUtil;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +22,14 @@ import java.util.List;
 @WebServlet(name = "forumServlet", urlPatterns = "/forum")
 
 public class ForumServlet extends HttpServlet {
+    Dao forumDaoImpl;
+
+    @Override
+    public void init() throws ServletException {
+        ServletContext sc = getServletContext();
+        forumDaoImpl = (Dao) sc.getAttribute("forumDaoImpl");
+    }
+
     private final Connection connection = DatabaseConnectionUtil.getConnection();
 
     @Override
@@ -33,7 +42,7 @@ public class ForumServlet extends HttpServlet {
         req.setAttribute("forums", sb);*/
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        req.setAttribute("reviews", new ForumDaoImpl().getAll());
+        req.setAttribute("reviews", forumDaoImpl.getAll());
         req.getRequestDispatcher("forum.ftl").forward(req,resp);
         /*List<Forum> forums = new ForumDaoImpl().getAll();
         req.setAttribute("forums",forums);
@@ -54,7 +63,7 @@ public class ForumServlet extends HttpServlet {
                 .time(time)
                 .content(content)
                 .build();
-        new ForumDaoImpl().save(forum);
+        forumDaoImpl.save(forum);
         doGet(req,resp);
     }
     private int generateId() {

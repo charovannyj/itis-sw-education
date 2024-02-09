@@ -1,11 +1,10 @@
 package ru.kpfu.itis.nikolaev.net.server;
 
-import ru.kpfu.itis.nikolaev.net.dao.impl.ForumDaoImpl;
-import ru.kpfu.itis.nikolaev.net.dao.impl.RatingDaoImpl;
-import ru.kpfu.itis.nikolaev.net.model.Forum;
+import ru.kpfu.itis.nikolaev.net.dao.Dao;
 import ru.kpfu.itis.nikolaev.net.model.Rating;
 import ru.kpfu.itis.nikolaev.net.util.DatabaseConnectionUtil;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +25,14 @@ import java.util.Set;
 @WebServlet(name = "ratingServlet", urlPatterns = "/rating")
 
 public class RatingServlet extends HttpServlet {
+    Dao ratingDaoImpl;
+
+    @Override
+    public void init() throws ServletException {
+        ServletContext sc = getServletContext();
+        ratingDaoImpl = (Dao) sc.getAttribute("ratingDaoImpl");
+    }
+
     private final Connection connection = DatabaseConnectionUtil.getConnection();
 
     @Override
@@ -52,7 +59,7 @@ public class RatingServlet extends HttpServlet {
         req.setAttribute("names", getNamesTeacher());
         req.setAttribute("areas", getAreas());
         req.setAttribute("subjects", getSubjects());
-        req.setAttribute("ratings", new RatingDaoImpl().getAll());
+        req.setAttribute("ratings", ratingDaoImpl.getAll());
         req.getRequestDispatcher("rating.ftl").forward(req,resp);
     }
     @Override
@@ -75,7 +82,7 @@ public class RatingServlet extends HttpServlet {
                 .login_user(login)
                 .area(area)
                 .build();
-        new RatingDaoImpl().save(rating);
+        ratingDaoImpl.save(rating);
         doGet(req,resp);
     }
     private Set<String> getNamesTeacher(){

@@ -1,9 +1,11 @@
 package ru.kpfu.itis.nikolaev.net.server;
 
+import ru.kpfu.itis.nikolaev.net.dao.Dao;
 import ru.kpfu.itis.nikolaev.net.dao.impl.UserDaoImpl;
 import ru.kpfu.itis.nikolaev.net.model.User;
 import ru.kpfu.itis.nikolaev.net.util.DatabaseConnectionUtil;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +24,14 @@ import static java.lang.System.out;
 @WebServlet(name = "registrationServlet", urlPatterns = "/registration")
 
 public class RegistrationServlet extends HttpServlet {
+    Dao userDaoImpl;
+    @Override
+    public void init() throws ServletException {
+        ServletContext sc = getServletContext();
+        userDaoImpl = (Dao) sc.getAttribute("userDaoImpl");
+    }
+
+
     private final Connection connection = DatabaseConnectionUtil.getConnection();
 
     @Override
@@ -51,7 +61,7 @@ public class RegistrationServlet extends HttpServlet {
                             .gender(gender)
                             .position(position)
                             .build();
-                    new UserDaoImpl().save(newUser);
+                    userDaoImpl.save(newUser);
                     resp.sendRedirect("login");
                 } else {
                     doGet(req, resp);

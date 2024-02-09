@@ -1,8 +1,5 @@
 package ru.kpfu.itis.nikolaev.net.server;
 
-import ru.kpfu.itis.nikolaev.net.dao.impl.TeacherDaoImpl;
-import ru.kpfu.itis.nikolaev.net.model.Teacher;
-import ru.kpfu.itis.nikolaev.net.model.User;
 import ru.kpfu.itis.nikolaev.net.util.DatabaseConnectionUtil;
 
 import javax.servlet.ServletException;

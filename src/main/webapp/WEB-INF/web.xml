@@ -24,4 +24,7 @@
     <servlet-name>freemarker</servlet-name>
     <url-pattern>*.ftl</url-pattern>
   </servlet-mapping>
+  <listener>
+    <listener-class>ru.kpfu.itis.nikolaev.net.server.InitListener</listener-class>
+  </listener>
 </web-app>

@@ -33,7 +33,7 @@ public class RatingDaoImpl implements Dao<Rating> {
                                     resultSet.getString("area"),
                                     resultSet.getString("teacher"),
                                     resultSet.getString("content")
-                                    )
+                            )
                     );
                 }
             }

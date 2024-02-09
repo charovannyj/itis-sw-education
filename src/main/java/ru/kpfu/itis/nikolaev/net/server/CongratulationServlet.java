@@ -1,9 +1,10 @@
 package ru.kpfu.itis.nikolaev.net.server;
 
-import ru.kpfu.itis.nikolaev.net.dao.impl.CourseDaoImpl;
+import ru.kpfu.itis.nikolaev.net.dao.Dao;
 import ru.kpfu.itis.nikolaev.net.model.Course;
 import ru.kpfu.itis.nikolaev.net.util.DatabaseConnectionUtil;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,14 @@ import java.util.List;
 @WebServlet(name = "congratulationServlet", urlPatterns = "/congratulation")
 
 public class CongratulationServlet extends HttpServlet {
+    Dao courseDaoImpl;
+
+    @Override
+    public void init() throws ServletException {
+        ServletContext sc = getServletContext();
+        courseDaoImpl = (Dao) sc.getAttribute("courseDaoImpl");
+    }
+
     private final Connection connection = DatabaseConnectionUtil.getConnection();
 
     @Override
@@ -26,7 +35,7 @@ public class CongratulationServlet extends HttpServlet {
         req.setAttribute("name", req.getParameter("name"));
         req.setAttribute("area", req.getParameter("area"));
         req.setAttribute("subject",req.getParameter("subject"));
-        new CourseDaoImpl().save(new Course(generateId(),
+        courseDaoImpl.save(new Course(generateId(),
                 req.getParameter("name"),
                 4000,
                 8,

@@ -1,20 +1,14 @@
 package ru.kpfu.itis.nikolaev.net.server;
 
-import ru.kpfu.itis.nikolaev.net.dao.impl.ForumDaoImpl;
-import ru.kpfu.itis.nikolaev.net.model.Forum;
 import ru.kpfu.itis.nikolaev.net.util.DatabaseConnectionUtil;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
-import java.util.List;
 
 @WebServlet(name = "mainServlet", urlPatterns = "/main")
 
